@@ -1,4 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/neo')
+# frozen_string_literal: true
+
+require File.expand_path("#{File.dirname(__FILE__)}/neo")
 
 class AboutModules < Neo::Koan
   module Nameable
@@ -25,11 +27,11 @@ class AboutModules < Neo::Koan
     attr_reader :name
 
     def initialize
-      @name = "Fido"
+      @name = 'Fido'
     end
 
     def bark
-      "WOOF"
+      'WOOF'
     end
 
     def here
@@ -45,14 +47,14 @@ class AboutModules < Neo::Koan
   def test_module_methods_are_also_available_in_the_object
     fido = Dog.new
     assert_nothing_raised do
-      fido.set_name("Rover")
+      fido.set_name('Rover')
     end
   end
 
   def test_module_methods_can_affect_instance_variables_in_the_object
     fido = Dog.new
     assert_equal __, fido.name
-    fido.set_name("Rover")
+    fido.set_name('Rover')
     assert_equal __, fido.name
   end
 

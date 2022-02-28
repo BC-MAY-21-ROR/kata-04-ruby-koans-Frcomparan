@@ -1,9 +1,10 @@
-require File.expand_path(File.dirname(__FILE__) + '/neo')
+# frozen_string_literal: true
+
+require File.expand_path("#{File.dirname(__FILE__)}/neo")
 
 class AboutBlocks < Neo::Koan
   def method_with_block
-    result = yield
-    result
+    yield
   end
 
   def test_methods_can_take_blocks
@@ -12,14 +13,14 @@ class AboutBlocks < Neo::Koan
   end
 
   def test_blocks_can_be_defined_with_do_end_too
-    yielded_result = method_with_block do 1 + 2 end
+    yielded_result = method_with_block { 1 + 2 }
     assert_equal __, yielded_result
   end
 
   # ------------------------------------------------------------------
 
   def method_with_block_arguments
-    yield("Jim")
+    yield('Jim')
   end
 
   def test_blocks_can_take_arguments
@@ -67,7 +68,7 @@ class AboutBlocks < Neo::Koan
   end
 
   def test_blocks_can_be_assigned_to_variables_and_called_explicitly
-    add_one = lambda { |n| n + 1 }
+    add_one = ->(n) { n + 1 }
     assert_equal __, add_one.call(10)
 
     # Alternative calling syntax
@@ -75,7 +76,7 @@ class AboutBlocks < Neo::Koan
   end
 
   def test_stand_alone_blocks_can_be_passed_to_methods_expecting_blocks
-    make_upper = lambda { |n| n.upcase }
+    make_upper = ->(n) { n.upcase }
     result = method_with_block_arguments(&make_upper)
     assert_equal __, result
   end
@@ -89,8 +90,7 @@ class AboutBlocks < Neo::Koan
   def test_methods_can_take_an_explicit_block_argument
     assert_equal __, method_with_explicit_block { |n| n * 2 }
 
-    add_one = lambda { |n| n + 1 }
+    add_one = ->(n) { n + 1 }
     assert_equal __, method_with_explicit_block(&add_one)
   end
-
 end

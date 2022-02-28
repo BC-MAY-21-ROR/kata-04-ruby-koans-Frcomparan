@@ -1,4 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/neo')
+# frozen_string_literal: true
+
+require File.expand_path("#{File.dirname(__FILE__)}/neo")
 
 class AboutInheritance < Neo::Koan
   class Dog
@@ -9,7 +11,7 @@ class AboutInheritance < Neo::Koan
     end
 
     def bark
-      "WOOF"
+      'WOOF'
     end
   end
 
@@ -19,7 +21,7 @@ class AboutInheritance < Neo::Koan
     end
 
     def bark
-      "yip"
+      'yip'
     end
   end
 
@@ -32,25 +34,25 @@ class AboutInheritance < Neo::Koan
   end
 
   def test_subclasses_inherit_behavior_from_parent_class
-    chico = Chihuahua.new("Chico")
+    chico = Chihuahua.new('Chico')
     assert_equal __, chico.name
   end
 
   def test_subclasses_add_new_behavior
-    chico = Chihuahua.new("Chico")
+    chico = Chihuahua.new('Chico')
     assert_equal __, chico.wag
 
     assert_raise(___) do
-      fido = Dog.new("Fido")
+      fido = Dog.new('Fido')
       fido.wag
     end
   end
 
   def test_subclasses_can_modify_existing_behavior
-    chico = Chihuahua.new("Chico")
+    chico = Chihuahua.new('Chico')
     assert_equal __, chico.bark
 
-    fido = Dog.new("Fido")
+    fido = Dog.new('Fido')
     assert_equal __, fido.bark
   end
 
@@ -58,12 +60,12 @@ class AboutInheritance < Neo::Koan
 
   class BullDog < Dog
     def bark
-      super + ", GROWL"
+      "#{super}, GROWL"
     end
   end
 
   def test_subclasses_can_invoke_parent_behavior_via_super
-    ralph = BullDog.new("Ralph")
+    ralph = BullDog.new('Ralph')
     assert_equal __, ralph.bark
   end
 
@@ -71,15 +73,14 @@ class AboutInheritance < Neo::Koan
 
   class GreatDane < Dog
     def growl
-      super.bark + ", GROWL"
+      "#{super.bark}, GROWL"
     end
   end
 
   def test_super_does_not_work_cross_method
-    george = GreatDane.new("George")
+    george = GreatDane.new('George')
     assert_raise(___) do
       george.growl
     end
   end
-
 end

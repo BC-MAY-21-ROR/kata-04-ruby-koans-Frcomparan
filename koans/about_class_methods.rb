@@ -1,4 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/neo')
+# frozen_string_literal: true
+
+require File.expand_path("#{File.dirname(__FILE__)}/neo")
 
 class AboutClassMethods < Neo::Koan
   class Dog
@@ -80,7 +82,7 @@ class AboutClassMethods < Neo::Koan
 
   def test_classes_and_instances_do_not_share_instance_variables
     fido = Dog.new
-    fido.name = "Fido"
+    fido.name = 'Fido'
     assert_equal __, fido.name
     assert_equal __, Dog.name
   end
@@ -88,7 +90,7 @@ class AboutClassMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   class Dog
-    def Dog.a_class_method
+    def self.a_class_method
       :dogs_class_method
     end
   end
@@ -165,5 +167,4 @@ class AboutClassMethods < Neo::Koan
     fido = Dog.new
     assert_equal __, fido.class.another_class_method
   end
-
 end
