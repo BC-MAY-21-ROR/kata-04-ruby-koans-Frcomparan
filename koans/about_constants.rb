@@ -17,7 +17,7 @@ class AboutConstants < Neo::Koan
 
   def test_nested_constants_are_referenced_by_their_complete_path
     assert_equal __, AboutConstants::C
-    assert_equal __, ::AboutConstants::C
+    assert_equal __,::AboutConstants::C
   end
 
   # ------------------------------------------------------------------
@@ -72,12 +72,10 @@ class AboutConstants < Neo::Koan
 
   # ------------------------------------------------------------------
 
-  module MyAnimals
-    class Oyster < Animal
+  class MyAnimals::Oyster < Animal
       def legs_in_oyster
         LEGS
       end
-    end
   end
 
   def test_who_wins_with_explicit_scoping_on_class_definition
