@@ -15,8 +15,22 @@
 # and
 #   about_triangle_project_2.rb
 #
-def triangle(a, b, c)
-  # WRITE THIS CODE
+def equilateral?(side_a, side_b, side_c)
+  side_a == side_b && side_b == side_c 
+end
+
+def scalene?(side_a, side_b, side_c)
+  side_a == side_b || side_a == side_c || side_b == side_c
+end
+
+def triangle(side_a, side_b, side_c)
+  if equilateral?(side_a, side_b, side_c)
+    :equilateral
+  elsif scalene?(side_a, side_b, side_c)
+    :isosceles
+  else
+    :scalene
+  end
 end
 
 # Error class used in part 2.  No need to change this code.
