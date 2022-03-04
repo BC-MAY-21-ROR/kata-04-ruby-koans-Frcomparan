@@ -23,13 +23,25 @@ def scalene?(side_a, side_b, side_c)
   side_a == side_b || side_a == side_c || side_b == side_c
 end
 
+def valid_triangle?(side_a, side_b, side_c)
+  if side_a > side_b && side_a > side_c
+    side_b + side_c > side_a
+  elsif side_b > side_c
+    side_a + side_c > side_b
+  else 
+    side_a + side_b > side_c
+  end
+end
+
+def positive_sides?(side_a, side_b, side_c)
+  side_a > 0 && side_b > 0 && side_c > 0
+end
+
 def triangle(side_a, side_b, side_c)
-  if equilateral?(side_a, side_b, side_c)
-    :equilateral
-  elsif scalene?(side_a, side_b, side_c)
-    :isosceles
-  else
-    :scalene
+  (raise TriangleError) unless valid_triangle?(side_a, side_b, side_c) && positive_sides?(side_a, side_b, side_c)
+  if equilateral?(side_a, side_b, side_c) then :equilateral
+  elsif scalene?(side_a, side_b, side_c) then :isosceles
+  else :scalene
   end
 end
 
