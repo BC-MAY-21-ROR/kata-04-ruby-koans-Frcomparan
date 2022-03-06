@@ -30,9 +30,27 @@ require File.expand_path("#{File.dirname(__FILE__)}/neo")
 # More scoring examples are given in the tests below:
 #
 # Your goal is to write the score method.
+def three_numbers_others_than_ones(key, value, points)
+  points += (key * 100)
+  points += (value - 3) * 50 if key == 5
+  points
+end
+
+def five_or_one_points(key, value, points)
+  points += (value * 100) if key == 1
+  points += (value * 50) if key == 5
+  points
+end
+
+def calculate_score(key, value, points)
+  value >= 3 ? three_numbers_others_than_ones(key, value, points) : five_or_one_points(key, value, points)
+end
 
 def score(dice)
-  # You need to write this method
+  numbers_count = dice.each_with_object(Hash.new(0)) { |num, obj| obj[num] += 1}
+  points = 0
+  numbers_count.each { |key, value| value >= 3 && key == 1 ? points += 1000 + ((value - 3) * 100) : points = calculate_score(key, value, points) }
+  points
 end
 
 class AboutScoringProject < Neo::Koan
