@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 
 require File.expand_path("#{File.dirname(__FILE__)}/neo")
 
@@ -15,12 +14,32 @@ require File.expand_path("#{File.dirname(__FILE__)}/neo")
 # of the Proxy class is given in the AboutProxyObjectProject koan.
 
 class Proxy
+
+  attr_reader :messages
+
   def initialize(target_object)
     @object = target_object
-    # ADD MORE CODE HERE
+    @messages = []
   end
 
-  # WRITE CODE HERE
+  def called?(method_name)
+    @messages.include? method_name
+  end
+  
+  def number_of_times_called(method_name)
+    @messages.count method_name
+  end
+  
+  def method_missing(method_name, *args, &block)
+    if @object.respond_to? method_name then
+      @messages.push method_name
+
+      @object.send(method_name, *args)
+    else
+      # all other cases: default behavior (raises NoMethodError)
+      super method_name, *args, &block
+    end
+  end
 end
 
 # The proxy object should pass the following Koan:
@@ -90,8 +109,8 @@ class AboutProxyObjectProject < Neo::Koan
     proxy.upcase!
     result = proxy.split
 
-    assert_equal %w[CODE MASH 2009], result
-    assert_equal %i[upcase! split], proxy.messages
+    assert_equal ["CODE", "MASH", "2009"], result
+    assert_equal [:upcase!, :split], proxy.messages
   end
 end
 
@@ -104,11 +123,11 @@ class Television
   attr_accessor :channel
 
   def power
-    @power = if @power == :on
-               :off
-             else
-               :on
-             end
+    if @power == :on
+      @power = :off
+    else
+      @power = :on
+    end
   end
 
   def on?
